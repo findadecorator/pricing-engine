@@ -8,7 +8,8 @@
     "build:dashboard": "node scripts/build-dashboard-readmodels.js",
     "start": "node dist/server.js",
     "dev": "nodemon --watch src --exec ts-node src/server.ts",
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "ts-node prisma/seed.ts",
+    "test": "echo \"No tests configured\" && exit 0"
   },
   "dependencies": {
     "@prisma/client": "^5.17.0",
