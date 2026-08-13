@@ -1,0 +1,17 @@
+{
+  "generatedAt": "2026-08-09T15:36:46.712Z",
+  "pro": {
+    "totalInvoices": 2,
+    "totalRevenuePence": 240000,
+    "pendingInvoices": 1
+  },
+  "customer": {
+    "totalSpendPence": 120000,
+    "activeCredits": 30,
+    "outstandingInvoices": 1
+  },
+  "realtime": {
+    "connectedUsers": 1,
+    "lastUpdatedAt": "2026-08-09T15:36:46.713Z"
+  }
+}
