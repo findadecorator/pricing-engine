@@ -1,0 +1,7 @@
+﻿chore: update smoke tests to use seeded demo user and fix unlock route
+
+- pricing: use seeded demo user id (cmsnxwwin0000h8ovecamsud2)
+- pricing: call /api/leads/unlock instead of /api/pricing/unlock-job
+- full-smoke: fix script working directory resolution
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>

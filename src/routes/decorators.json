@@ -1,0 +1,19 @@
+{
+  "items": [
+    {
+      "name": "Alice",
+      "specialty": "Interior Painting",
+      "bio": "Expert in residential interior painting with 10+ years experience."
+    },
+    {
+      "name": "Ben",
+      "specialty": "Exterior Painting",
+      "bio": "Specializes in exterior surfaces, weatherproof coatings, and restoration."
+    },
+    {
+      "name": "Carla",
+      "specialty": "Decorative Finishes",
+      "bio": "Creates custom decorative finishes, textures, and artistic wall designs."
+    }
+  ]
+}

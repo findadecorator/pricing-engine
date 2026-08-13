@@ -1,0 +1,198 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String         @id @default(cuid())
+  email            String         @unique
+  name             String?
+  passwordHash     String?
+  plan             String         @default("STARTER")
+  regionsAllowed   Int            @default(1)
+  credits          Int            @default(0)
+  stripeCustomerId String?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  purchases        PackPurchase[]
+  purchasesGeneric Purchase[]
+  invoices         Invoice[]
+  taxRecords       TaxRecord[]
+  expenses         Expense[]
+}
+
+model PackPurchase {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  credits   Int
+  packName  String
+  price     Decimal  @db.Decimal(10, 2)
+  createdAt DateTime @default(now())
+}
+
+enum InvoiceStatus {
+  UNPAID
+  PAID
+  PARTIALLY_PAID
+  CANCELLED
+  REFUNDED
+}
+
+model Invoice {
+  id            String        @id @default(cuid())
+  invoiceNumber String        @unique
+  leadId        String?
+  userId        String
+  customerId    String
+  issueDate     DateTime      @default(now())
+  dueDate       DateTime
+  currency      String
+  subtotalPence Int
+  vatPence      Int
+  totalPence    Int
+  status        InvoiceStatus @default(UNPAID)
+  lineItems     Json
+  metadata      Json?
+  pdfUrl        String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  user          User          @relation(fields: [userId], references: [id])
+}
+
+model TaxRecord {
+  id              String   @id @default(cuid())
+  userId          String
+  periodStart     DateTime
+  periodEnd       DateTime
+  totalSalesPence Int
+  totalVatPence   Int
+  country         String
+  currency        String
+  createdAt       DateTime @default(now())
+  exported        Boolean  @default(false)
+  exportMeta      Json?
+  user            User     @relation(fields: [userId], references: [id])
+}
+
+model Expense {
+  id          String   @id @default(cuid())
+  userId      String
+  description String
+  amountPence Int
+  vatPence    Int
+  receiptUrl  String?
+  category    String?
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+// Generic Purchase model for subscriptions, addons, exclusive leads, refunds
+model Purchase {
+  id         String   @id @default(cuid())
+  userId     String
+  type       String
+  credits    Int?
+  pricePence Int?
+  meta       Json?
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+// Messaging models
+model Conversation {
+  id           String    @id @default(cuid())
+  jobId        String?
+  title        String?
+  createdBy    String
+  participants String
+  updatedAt    DateTime  @updatedAt
+  createdAt    DateTime  @default(now())
+  messages     Message[]
+}
+
+enum MessageStatus {
+  SENT
+  DELIVERED
+  READ
+}
+
+model Message {
+  id             String        @id @default(cuid())
+  conversationId String
+  senderId       String
+  body           String
+  sanitizedHtml  String?
+  metadata       Json?
+  idempotencyKey String?       @unique
+  status         MessageStatus @default(SENT)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  conversation   Conversation  @relation(fields: [conversationId], references: [id])
+}
+
+model Attachment {
+  id         String   @id @default(cuid())
+  userId     String
+  filename   String
+  mime       String
+  size       Int
+  storageKey String
+  createdAt  DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String
+  payload   Json
+  delivered Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+// Ads and monetization
+model Campaign {
+  id          String    @id @default(cuid())
+  name        String
+  ownerId     String
+  budgetPence Int
+  spentPence  Int       @default(0)
+  startDate   DateTime
+  endDate     DateTime?
+  active      Boolean   @default(true)
+  metadata    Json?
+  createdAt   DateTime  @default(now())
+}
+
+model AdEvent {
+  id         String   @id @default(cuid())
+  campaignId String?
+  userId     String?
+  type       String
+  metadata   Json?
+  createdAt  DateTime @default(now())
+}
+
+model Coupon {
+  id          String    @id @default(cuid())
+  code        String    @unique
+  discountPct Int
+  active      Boolean   @default(true)
+  maxUses     Int?
+  uses        Int       @default(0)
+  validFrom   DateTime?
+  validTo     DateTime?
+  createdAt   DateTime  @default(now())
+}
+
+model RevenueRecord {
+  id          String   @id @default(cuid())
+  purchaseId  String
+  amountPence Int
+  source      String
+  createdAt   DateTime @default(now())
+}
