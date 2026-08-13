@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+'use strict';
+
+const path = require('path');
+const fs = require('fs');
+
+const cliPath = path.join(__dirname, 'lib', 'cli.js');
+
+if (!fs.existsSync(cliPath)) {
+  console.error('Error: cli.js not found at', cliPath);
+  process.exit(1);
+}
+
+try {
+  const cli = require(cliPath);
+
+  if (typeof cli === 'function') {
+    cli(process);
+  } else if (cli && typeof cli.default === 'function') {
+    cli.default(process);
+  } else {
+    console.error('Error: cli.js does not export a callable function.');
+    process.exit(1);
+  }
+} catch (err) {
+  console.error('Error while loading or running cli.js:');
+  console.error(err && err.stack ? err.stack : err);
+  process.exit(1);
+}

@@ -1,9 +1,0 @@
-{"ts":"2026-08-11T00:49:38.239Z","type":"campaign.created","campaignId":"cmsny0q030002urkj42eu9q4s"}
-{"ts":"2026-08-11T01:01:01.328Z","type":"pack_purchase","userId":"cmsnxwwin0000h8ovecamsud2","purchaseId":"cmsnyfd3c0005urkj72lpdtj7","packCode":"SMALL"}
-{"ts":"2026-08-11T01:03:54.136Z","type":"lead_unlocked","userId":"cmsnxwwin0000h8ovecamsud2","required":1}
-{"ts":"2026-08-11T01:04:05.402Z","type":"pack_purchase","userId":"cmsnxwwin0000h8ovecamsud2","purchaseId":"cmsnyjb4p0005ipa7f3n7n0si","packCode":"SMALL"}
-{"ts":"2026-08-11T01:04:05.427Z","type":"lead_unlocked","userId":"cmsnxwwin0000h8ovecamsud2","required":1}
-{"ts":"2026-08-11T01:04:37.608Z","type":"pack_purchase","userId":"cmsnxwwin0000h8ovecamsud2","purchaseId":"cmsnyjzza000bipa7zk9x3cgp","packCode":"SMALL"}
-{"ts":"2026-08-11T01:04:37.631Z","type":"lead_unlocked","userId":"cmsnxwwin0000h8ovecamsud2","required":1}
-{"ts":"2026-08-11T01:04:37.958Z","type":"campaign.created","campaignId":"cmsnyk08y000gipa7eqveq74c"}
-{"ts":"2026-08-11T20:11:56.059Z","type":"pack_purchase","userId":"cmsnxwwin0000h8ovecamsud2","purchaseId":"cmsp3jg2h0005tvc6g2bmsc9n","packCode":"SMALL"}
